@@ -1,6 +1,4 @@
-# Insert an external Excel file and populate it with JSON data
-
-[![Node.js build](https://github.com/microsoftgraph/msgraph-training-office-addin/actions/workflows/node.js.yml/badge.svg)](https://github.com/microsoftgraph/msgraph-training-office-addin/actions/workflows/node.js.yml) ![License.](https://img.shields.io/badge/license-MIT-green.svg)
+![](./assets/sampleDemo.gif)
 
 This sample shows how to insert an existing template from an external Excel file into the currently open Excel file. Then it retrieves data from a JSON web service and populates the template for the customer.
 
@@ -8,68 +6,70 @@ This sample shows how to insert an existing template from an external Excel file
 - Use insertWorksheetsFromBase64 to insert a worksheet from another Excel file into the open Excel file.
 - Get JSON data and add it to the worksheet.
 
-## Sample Demo Video
-![npm-search-msgext](assets/sampleDemo.gif)
-
-## Required Steps & How to Run
+## How to run this sample
 
 ### Prerequisites
-To run the completed project in this folder, you need the following:
-- [Node.js](https://nodejs.org) installed on your development machine. (**Note:** This tutorial was written with Node version 16.14.0. The steps in this guide may work with other versions, but that has not been tested.)
-- Either a personal Microsoft account with a mailbox on Outlook.com, or a Microsoft work or school account. You can [sign up for the Microsoft 365 Developer Program](https://developer.microsoft.com/microsoft-365/dev-program) to get a free Microsoft 365 subscription.
+- [Node.js](https://nodejs.org) 16/18 (Tested on 16.14.0)
+- [Teams Toolkit Visual Studio Code Extension](https://aka.ms/teams-toolkit) version 5.4.0 and higher.
+- Office connected to a Microsoft 365 subscription (including Office on the web). If you don't already have Office, you might qualify for a Microsoft 365 E5 developer subscription through the [Microsoft 365 Developer Program](
+https://developer.microsoft.com/en-us/microsoft-365/dev-program);
+for details, see the [FAQ](
+https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-faq#who-qualifies-for-a-microsoft-365-e5-developer-subscription-).
+Alternatively, you can [sign up for a 1-month free trial](
+https://www.microsoft.com/en-us/microsoft-365/try?rtc=1)
+or [purchase a Microsoft 365 plan](
+https://www.microsoft.com/en-us/microsoft-365/buy/compare-all-microsoft-365-products).
 
-### Run the sample on Windows and Mac
 
-Run the following command in your CLI to start the application.
-```
-npm run build
-npm start
-```
+### Run and debug the add-in
+1. Open M365/Teams Toolkit
+<br>![](./assets/toolkit_development.png)
+2. Click `Check and Install Dependencies`
+3. Launch and debug
+    * **For Office on Windows/macOS**, click `Preview Your Office Add-in(F5)` button on tree view and select a launch config. A Word/Excel/PowerPoint app will launch with add-in sample side-loaded. **Note:** Debugging on macOS is not supported yet.
+    * **For Office on the web**: [Sideload Office Add-ins to Office on the web](https://learn.microsoft.com/office/dev/add-ins/testing/sideload-office-add-ins-for-testing)
+4. Click `Stop Preview Your Office Add-in` to stop debugging.
 
-### Expected result
 
-A webpack server will be hosted on https://localhost:3000/, as the CLI shows:
-
-![](./assets/webpack.png)
-
-An Excel desktop application will be auto-launched and this Addin will be auto-run on the right taskpane area. The sideload steps has been integrated into the process, eliminating the need for manual intervention.
-
-![](./assets/taskpane.png)
-
-Please follow the steps below:
-
-1. Click the button "Choose File" to choose the Excel file you want to inserted into the worksheet. You can also use the provided file nameds as "SalesTemplate.xlsx" to have a test.
-
+### How to use this sample add-in
+1. Click the button "Choose File" to choose the Excel file you want to inserted into the worksheet. You can also use the provided file name as "SalesTemplate.xlsx" to have a test.
 2. Then, the provided Excel file will be inserted into current worksheet.
-
 3. What's more, we will also automate appendix an worksheet using the provided "JSONData.json"
 
-### Sideload the sample add-in on Excel Online
 
-The previous steps show you how to run our sample on Desktop. As for the Excel Online, please follow the following steps to sideload the manifest.xml file on web.
-
-1.  **Keep the webpack server on** to host your sample add-in.
-1.  Open [Office on the web](https://office.live.com/).
-1.  Choose **Excel**, and then open a new document.
-1.  On the **Home** tab, in the **Add-ins** section, choose **Add-ins** and click **More Add-ins** on the lower-right corner to open Add-in Store Page.
-1.  On the **Office Add-ins** dialog, select the **MY ADD-INS** tab, choose **Manage My Add-ins**, and then **Upload My Add-in**.
-
-    ![](./assets/manageAddins.png)
-
-1.  Browse to the localhost add-in manifest file(manifest-localhost.xml), and then select **Upload**.
-
-    ![](./assets/localhostXML.png)
-
-1.  Verify that the add-in loaded successfully. 
-
+### File structure
+```
+| .eslintrc.json
+| .gitignore
+| .vscode/
+|   | extensions.json
+|   | launch.json               Launch and debug configurations
+|   | settings.json             
+|   | tasks.json                
+| assets/                       Static assets like image/gif
+| babel.config.json
+| manifest*.xml                 Manifest file
+| package.json                  
+| README.md                     Get started here
+| SalesTemplate.xlsx            Template to be imported
+| SECURITY.md
+| src/                          Add-ins source code
+|   | commands/
+|   |   | commands.html
+|   |   | commands.js
+|   | taskpane/
+|   |   | JSONdata.json         Sample data
+|   |   | taskpane.css          Taskpane style
+|   |   | taskpane.html         Taskpane entry html
+|   |   | taskpane.js           Add API calls and logic here
+| webpack.config.js             Webpack config
+```
 
 ## Feedback
-Did you experience any problems with the sample? [Create an issue]( https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples/issues/new) and we'll help you out.
-
-Let us know your experience using our sample code for Office add-in development: [Sample survey](https://aka.ms/OfficeDevSampleSurvey).
+Did you experience any problems with the sample? [Create an issue]( https://github.com/OfficeDev/Office-Samples/issues/new) and we'll help you out.
 
 ## Copyright
-Copyright (c) 2021 Microsoft Corporation. All rights reserved.
+Copyright (c) 2024 Microsoft Corporation. All rights reserved.
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 <br>**Note**: The taskpane.html file contains an image URL that tracks diagnostic data for this sample add-in. Please remove the image tag if you reuse this sample in your own code project.
 <img src="https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/word-add-in-aigc">

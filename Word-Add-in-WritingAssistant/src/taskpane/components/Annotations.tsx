@@ -2,8 +2,9 @@
 
 import * as React from "react";
 import { Button, Field, tokens, makeStyles } from "@fluentui/react-components";
-import { initDocument, insertInitAnnotations } from "../office-document";
+import { allAnnotationIds, ignoreAll, insertInitAnnotations, rewriteText } from "../office-document";
 import NewModal from "./NewModal";
+import FileUploader from "./FileUploader";
 
 const useStyles = makeStyles({
   instructions: {
@@ -14,14 +15,24 @@ const useStyles = makeStyles({
   textPromptAndInsertion: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "left",
+    width: "100%",
+    marginLeft: "30px",
+    marginRight: "10px",
   },
   textAreaField: {
-    marginLeft: "20px",
-    marginTop: "30px",
-    marginBottom: "20px",
-    marginRight: "20px",
-    maxWidth: "50%",
+    marginLeft: "10px",
+    marginTop: "0px",
+    marginBottom: "0px",
+    marginRight: "10px",
+    maxWidth: "80%",
+    alignItems: "left",
+    textAlign: "left",
+  },
+  button: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "left",
   },
 });
 
@@ -58,32 +69,42 @@ const AnnotationComponents: React.FC = () => {
     await registerEventHandlers();
   };
 
+  const handleRewriteText = async () => {
+    await rewriteText(
+      "Discover additional user-friendly tools on the 'Insert' tab, like adding a hyperlink or inserting a comment"
+    );
+  };
+
+  const handleIgnoreAll = async () => {
+    await ignoreAll();
+  };
   const registerEventHandlers = async () => {
     // Registers event handlers.
-    await Word.run(
-      async (context: {
-        document: {
-          onParagraphAdded: { add: (arg0: (args: Word.ParagraphChangedEventArgs) => Promise<void>) => any };
-          onParagraphChanged: { add: (arg0: (args: Word.ParagraphChangedEventArgs) => Promise<void>) => any };
-          onAnnotationClicked: { add: (arg0: (args: Word.AnnotationClickedEventArgs) => Promise<void>) => any };
-          onAnnotationHovered: { add: (arg0: (args: Word.AnnotationHoveredEventArgs) => Promise<void>) => any };
-          onAnnotationInserted: { add: (arg0: (args: Word.AnnotationInsertedEventArgs) => Promise<void>) => any };
-          onAnnotationRemoved: { add: (arg0: (args: Word.AnnotationRemovedEventArgs) => Promise<void>) => any };
-        };
-        sync: () => any;
-      }) => {
-        eventContexts[0] = context.document.onParagraphAdded.add(paragraphAdded);
-        eventContexts[1] = context.document.onParagraphChanged.add(paragraphChanged);
+    await Word.run(async (context) => {
+      eventContexts[0] = context.document.onParagraphAdded.add(paragraphAdded);
+      eventContexts[1] = context.document.onParagraphChanged.add(paragraphChanged);
 
-        eventContexts[2] = context.document.onAnnotationClicked.add(onClickedHandler);
-        eventContexts[3] = context.document.onAnnotationHovered.add(onHoveredHandler);
-        eventContexts[4] = context.document.onAnnotationInserted.add(onInsertedHandler);
-        eventContexts[5] = context.document.onAnnotationRemoved.add(onRemovedHandler);
+      eventContexts[2] = context.document.onAnnotationClicked.add(onClickedHandler);
+      eventContexts[3] = context.document.onAnnotationHovered.add(onHoveredHandler);
+      eventContexts[4] = context.document.onAnnotationInserted.add(onInsertedHandler);
+      eventContexts[5] = context.document.onAnnotationRemoved.add(onRemovedHandler);
+      eventContexts[6] = context.document.onAnnotationPopupAction.add(onPopupActionHandler);
 
-        await context.sync();
-      }
-    );
+      await context.sync();
+    });
     console.log("Event handlers registered.");
+  };
+
+  const onPopupActionHandler = async (args: Word.AnnotationPopupActionEventArgs) => {
+    await Word.run(async () => {
+      let message = `AnnotationPopupAction: ${args.id} - `;
+      if (args.action === "Accept") {
+        message += `Accepted: ` + args.critiqueSuggestion;
+      } else {
+        message += "Rejected";
+      }
+      console.log(message);
+    });
   };
 
   const paragraphAdded = async (args: Word.ParagraphAddedEventArgs) => {
@@ -103,17 +124,18 @@ const AnnotationComponents: React.FC = () => {
         resultString += `${args.type}: ${result.para.uniqueLocalId} - ${result.text.value}` + "\n";
       }*/
     });
+    /*
     handleModalShow(
       true,
       args.type,
       "New paragraph(s) added, do you want to start checking grammers?",
       "",
       args.uniqueLocalIds
-    );
+    );*/
   };
 
   const paragraphChanged = async (args: Word.ParagraphChangedEventArgs) => {
-    let resultString = "";
+    //let resultString = "";
     await Word.run(
       async (context: { document: { getParagraphByUniqueLocalId: (arg0: any) => any }; sync: () => any }) => {
         const results = [];
@@ -126,12 +148,12 @@ const AnnotationComponents: React.FC = () => {
 
         await context.sync();
 
-        for (let result of results) {
-          resultString += `${args.type}: ${result.para.uniqueLocalId} - ${result.text.value}` + "\n";
-        }
+        //for (let result of results) {
+        //  resultString += `${args.type}: ${result.para.uniqueLocalId} - ${result.text.value}` + "\n";
+        //}
       }
     );
-    handleModalShow(true, "ParagraphChanged", resultString, "", [""]);
+    //handleModalShow(true, "ParagraphChanged", resultString, "", [""]);
   };
 
   const onClickedHandler = async (args: Word.AnnotationClickedEventArgs) => {
@@ -146,15 +168,38 @@ const AnnotationComponents: React.FC = () => {
   };
 
   const onHoveredHandler = async (args: Word.AnnotationHoveredEventArgs) => {
+    //let expectedString = "";
     await Word.run(async (context: { document: { getAnnotationById: (arg0: any) => any }; sync: () => any }) => {
       const annotation = context.document.getAnnotationById(args.id);
       annotation.load("critiqueAnnotation");
 
       await context.sync();
-
+      for (var i = 0; i < allAnnotationIds.length; i++) {
+        if (allAnnotationIds[i] === args.id) {
+          switch (i) {
+            case 0:
+              //expectedString = "effective";
+              break;
+            case 1:
+              //expectedString = "a";
+              break;
+            case 2:
+              //expectedString = "sov";
+              break;
+            case 3:
+              //expectedString = " 64";
+              break;
+            case 4:
+              //expectedString = "developme";
+              break;
+            default:
+              break;
+          }
+        }
+      }
       // result = `AnnotationHovered: ${args.id} - ${JSON.stringify(annotation.critiqueAnnotation.critique)}` + "\n";
     });
-    handleModalShow(true, "AnnotationHovered", "How do you want to continue with this?", args.id, [""]);
+    //handleModalShow(true, "xAnnotationHovered", expectedString, args.id, [""]);
   };
 
   const onInsertedHandler = async (args: Word.AnnotationInsertedEventArgs) => {
@@ -192,29 +237,39 @@ const AnnotationComponents: React.FC = () => {
         annotationId={state.annotationId}
         paraIds={state.paraIds}
       />
-      <Field
-        className={styles.textAreaField}
-        size="large"
-        label="Step 1. Insert initial text to start checking grammers."
-      ></Field>
-      <Button appearance="primary" disabled={false} size="large" onClick={initDocument}>
-        Insert
-      </Button>
+      <br />
+      <Field className={styles.textAreaField} size="large" label="Step 1. Import your document."></Field>
+      <FileUploader />
       <br />
       <Field
         className={styles.textAreaField}
         size="large"
-        label="Step 2. Click following button to check grammers and insert annotations."
+        label="Step 2. Click the button to check content. Click the annotations to see suggestions. "
       ></Field>
-      <Button appearance="primary" disabled={false} size="large" onClick={handleGrammerChecking}>
-        Check
-      </Button>
+      <div>
+        <Button appearance="primary" disabled={false} size="large" onClick={handleGrammerChecking}>
+          Check
+        </Button>
+      </div>
+
       <br />
       <Field
         className={styles.textAreaField}
         size="large"
-        label="Step 3. Hover the annotations to see details."
+        label="Step 3. Select a sentence and click the button to rewrite. "
       ></Field>
+      <div>
+        <Button appearance="primary" disabled={false} size="large" onClick={handleRewriteText}>
+          Rewrite
+        </Button>
+      </div>
+      <br />
+      <Field className={styles.textAreaField} size="large" label="Step 4. Ignore all annotations. "></Field>
+      <div>
+        <Button appearance="primary" disabled={false} size="large" onClick={handleIgnoreAll} >
+          Ignore
+        </Button>
+      </div>
     </div>
   );
 };
