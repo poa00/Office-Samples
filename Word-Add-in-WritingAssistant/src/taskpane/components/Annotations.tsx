@@ -266,7 +266,7 @@ const AnnotationComponents: React.FC = () => {
       <br />
       <Field className={styles.textAreaField} size="large" label="Step 4. Ignore all annotations. "></Field>
       <div>
-        <Button appearance="primary" disabled={false} size="large" onClick={handleIgnoreAll} >
+        <Button appearance="primary" disabled={false} size="large" onClick={handleIgnoreAll}>
           Ignore
         </Button>
       </div>

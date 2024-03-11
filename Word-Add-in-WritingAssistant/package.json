@@ -9,7 +9,7 @@
   "config": {
     "app_to_debug": "word",
     "app_type_to_debug": "desktop",
-    "dev_server_port": 3000
+    "dev_server_port": 3001
   },
   "scripts": {
     "build": "webpack --mode production",
@@ -19,9 +19,10 @@
     "lint:fix": "office-addin-lint fix",
     "prettier": "office-addin-lint prettier",
     "start": "office-addin-debugging start manifest.xml",
-    "prestart:desktop": "node ./src/Utils/FindAvailablePort.ts",
+    "mystart:desktop": "node ./src/Utils/UpdateConfigandStart.js",
     "start:desktop": "office-addin-debugging start manifest.xml desktop",
-    "start:desktop:word": "office-addin-debugging start manifest.xml desktop --app word",
+    "prestart:desktop:word": "node ./src/Utils/FindAvailablePort.ts",
+    "start:desktop:word": "npm run prestart:desktop:word && office-addin-debugging start manifest.xml desktop --app word",
     "start:desktop:excel": "office-addin-debugging start manifest.xml desktop --app excel",
     "start:desktop:powerpoint": "office-addin-debugging start manifest.xml desktop --app powerpoint",
     "start:desktop:outlook": "office-addin-debugging start manifest.xml desktop --app outlook",
