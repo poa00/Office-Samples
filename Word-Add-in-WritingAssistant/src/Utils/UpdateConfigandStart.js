@@ -13,7 +13,7 @@ function updatefile(filePath, newString) {
       if (err) {
         reject(`Error reading file from disk: ${err}`);
       } else {
-        const regex = new RegExp("3000", "g");
+        const regex = new RegExp(process.env.npm_package_config_dev_server_port, "g");
         const newData = data.replace(regex, newString);
 
         fs.writeFile(fullFilePath, newData, "utf8", (err) => {
@@ -29,7 +29,7 @@ function updatefile(filePath, newString) {
 }
 
 const getPortPromise = new Promise((resolve, reject) => {
-  portfinder.getPort({ port: 3000 }, async (err, port) => {
+  portfinder.getPort({ port: process.env.npm_package_config_dev_server_port }, async (err, port) => {
     if (err) {
       reject(err);
     } else {
@@ -81,7 +81,8 @@ updateConfig()
     let packageJson = require("../../package.json");
     console.log(`xxxPort in package.json is: ${packageJson.config.dev_server_port}`);
     exec(
-      `office-addin-debugging start manifest.xml desktop --app word --dev-server-port ${packageJson.config.dev_server_port}`,
+      `office-addin-debugging start manifest.xml desktop --app word`,
+      { env: { ...process.env, npm_package_config_dev_server_port: packageJson.config.dev_server_port } },
       (err, stdout) => {
         if (err) {
           console.error(err);
