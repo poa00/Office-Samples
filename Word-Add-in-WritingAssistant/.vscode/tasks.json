@@ -61,7 +61,7 @@
     {
       "label": "Debug: Word Desktop",
       "type": "npm",
-      "script": "start:desktop:word",
+      "script": "mystart:desktop",
       "presentation": {
         "clear": true,
         "panel": "dedicated",
