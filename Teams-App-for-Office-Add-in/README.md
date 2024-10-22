@@ -44,7 +44,7 @@ https://www.microsoft.com/en-us/microsoft-365/buy/compare-all-microsoft-365-prod
    ![](./images/environment-variable-3.png)
 
    ![](./images/environment-variable-4.png)
-- [Toolkit Package]([https://aka.ms/toolkit/package](https://github.com/hermanwenhe/temporary_package_storage/raw/refs/heads/main/ms-teams-vscode-extension-5.8.1.vsix)) Click this link will download a zip package, you need to extract this zip, then will see named `toolkit-package-latest.vsix`. Congratulations, you're ready for the next step!
+- [Toolkit Package](https://github.com/hermanwenhe/temporary_package_storage/raw/refs/heads/main/ms-teams-vscode-extension-5.8.1.vsix) Click this link will download a zip package, you need to extract this zip, then will see named `toolkit-package-latest.vsix`. Congratulations, you're ready for the next step!
 
 ## Install Toolkit package in VS-Code
 You need to reload your VS-Code after you have completed the following three steps.
