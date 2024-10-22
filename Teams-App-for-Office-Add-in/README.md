@@ -7,7 +7,7 @@
 - How an Office add-in can support Word, Excel, PowerPoint and Outlook Apps by using the unified JSON manifest.
 
 ## Prerequisites to use this sample
-- [Node.js](https://nodejs.org) 16/18 (Tested on 16.14.0)
+- [Node.js](https://nodejs.org) 16/18/20 (Tested on 16.14.0)
 - Office connected to a Microsoft 365 subscription. If you don't already have Office, you might qualify for a Microsoft 365 E5 developer subscription through the [Microsoft 365 Developer Program](
 https://developer.microsoft.com/en-us/microsoft-365/dev-program);
 for details, see the [FAQ](
@@ -44,7 +44,7 @@ https://www.microsoft.com/en-us/microsoft-365/buy/compare-all-microsoft-365-prod
    ![](./images/environment-variable-3.png)
 
    ![](./images/environment-variable-4.png)
-- [Toolkit Package](https://aka.ms/toolkit/package) Click this link will download a zip package, you need to extract this zip, then will see named `toolkit-package-latest.vsix`. Congratulations, you're ready for the next step!
+- [Toolkit Package]([https://aka.ms/toolkit/package](https://github.com/hermanwenhe/temporary_package_storage/raw/refs/heads/main/ms-teams-vscode-extension-5.8.1.vsix)) Click this link will download a zip package, you need to extract this zip, then will see named `toolkit-package-latest.vsix`. Congratulations, you're ready for the next step!
 
 ## Install Toolkit package in VS-Code
 You need to reload your VS-Code after you have completed the following three steps.
