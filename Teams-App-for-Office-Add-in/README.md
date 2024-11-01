@@ -29,7 +29,7 @@ https://www.microsoft.com/en-us/microsoft-365/buy/compare-all-microsoft-365-prod
 
     **Note:** After the registry key has enabled, the functionality of original store for add-in will be disabled.
 
-- [Toolkit Package](https://github.com/hermanwenhe/temporary_package_storage/raw/refs/heads/main/ms-teams-vscode-extension-5.10.0.vsix) Click this link will download a zip package, you need to extract this zip, then will see named `toolkit-package-latest.vsix`. Congratulations, you're ready for the next step!
+- Install [Toolkit Package](https://github.com/hermanwenhe/temporary_package_storage/raw/refs/heads/main/ms-teams-vscode-extension-5.10.0.vsix) By clicking this link, you will download a zip package. If you see the file named `toolkit-package-latest.vsix` when you extract the zip, then you're ready for the next step!
 
 ## Install Toolkit package in VS-Code
 You need to reload your VS-Code after you have completed the following three steps.
@@ -38,13 +38,17 @@ You need to reload your VS-Code after you have completed the following three ste
 
 
 ## Create Teams App for Office add-in
-![Create Office add-in by using Toolkit](./images/office-addin-create.png)
+Select Create a New App, then select Office Add-in, and taskpane
+![Create Office add-in by using Toolkit Step1](./images/office-addin-create-1.png)
+![Create Office add-in by using Toolkit Step2](./images/office-addin-create-2.png)
 
 Example of an add-in project via toolkit.
 ![](./images/addin-project.png)
 
 ## Import an Existing Office Add-in
-
+Select Create a New App, then select import an existing add-in. Select the folder and manifest file of an existing xml add-in.
+The converted add-in will open in a new VS Code window.
+![Create Office add-in by using Toolkit](./images/office-addin-import.png)
 
 ## File structure
 ```
