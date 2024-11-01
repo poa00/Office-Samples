@@ -46,8 +46,7 @@ Example of an add-in project via toolkit.
 ![](./images/addin-project.png)
 
 ## Import an Existing Office Add-in
-Select Create a New App, then select import an existing add-in. Select the folder and manifest file of an existing xml add-in.
-The converted add-in will open in a new VS Code window.
+Select "Create a New App", then "Import an existing add-in". Select the folder and manifest file of an existing xml add-in, then select the folder you want to place the converted add-in. After seconds of waiting, The converted add-in will open in a new VS Code window.
 ![Create Office add-in by using Toolkit](./images/office-addin-import.png)
 
 ## File structure
