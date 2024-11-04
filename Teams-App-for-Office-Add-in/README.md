@@ -29,39 +29,25 @@ https://www.microsoft.com/en-us/microsoft-365/buy/compare-all-microsoft-365-prod
 
     **Note:** After the registry key has enabled, the functionality of original store for add-in will be disabled.
 
-- Environment variables (Please follow these steps)
-
-    First, you need to search "path" in Windows Search bar. Click it and follow step by step.
-
-    ![](./images/enviroment-path.png)
-
-   ![](./images/environment-variable-1.png)
-
-   ![](./images/environment-variable-2.png)
-
-   TEAMSFX_OFFICE_ADDIN
-
-   ![](./images/environment-variable-3.png)
-
-   ![](./images/environment-variable-4.png)
-- [Toolkit Package](https://github.com/hermanwenhe/temporary_package_storage/raw/refs/heads/main/ms-teams-vscode-extension-5.10.0.vsix) Click this link will download a zip package, you need to extract this zip, then will see named `toolkit-package-latest.vsix`. Congratulations, you're ready for the next step!
+- Install [Toolkit Package](https://github.com/hermanwenhe/temporary_package_storage/raw/refs/heads/main/ms-teams-vscode-extension-5.10.0.vsix) By clicking this link, you will download a zip package. If you see the file named `toolkit-package-latest.vsix` when you extract the zip, then you're ready for the next step!
 
 ## Install Toolkit package in VS-Code
 You need to reload your VS-Code after you have completed the following three steps.
 ![](./images/install-toolkit-pkg.png)
 ![](./images/reload-vscode.png)
 
-## Get your environment ready
-![](./images/get-start-1.png)
-
-Please ensure your enviroment check is ready. As shown in the following picture. 
-![](./images/get-start-2.png)
 
 ## Create Teams App for Office add-in
-![Create Office add-in by using Toolkit](./images/office-addin-create.png)
+Select "Create a New App", then select "Office Add-in", and "Taskpane"
+![Create Office add-in by using Toolkit Step1](./images/office-addin-create-1.png)
+![Create Office add-in by using Toolkit Step2](./images/office-addin-create-2.png)
 
-Example of an add-in project via toolkit.
+An example of an add-in project via toolkit.
 ![](./images/addin-project.png)
+
+## Import an Existing Office Add-in
+Select "Create a New App", then "Import an existing add-in". Select the folder and manifest file of an existing xml add-in project, then select the folder you want to place the converted add-in. After seconds of waiting, The converted add-in will open in a new VS Code window.
+![Create Office add-in by using Toolkit](./images/office-addin-import.png)
 
 ## File structure
 ```
