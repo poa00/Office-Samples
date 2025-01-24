@@ -1,67 +1,55 @@
-# Microsoft Excel Mail Merge Sample Office Add-in
+# Excel Mail Merge Sample Office Add-in
 
-![npm-search-msgext](assets/sampleDemo.gif)
+<img src="./assets/thumbnail.png" width="800" alt="A workbook with mail merge add-in open.">
 
 This sample demonstrates how to use the Microsoft Graph JavaScript SDK to send emails in Excel from Office Add-ins.
 
-### Features
+## Features
+
 - Create Sample Data, including valid email address (required) and other information.
 - Verify Template and Data, the To Line must contain the column name of the email address.
 - Send Email, which will pop up a dialog to get the consent of Microsoft Graph. After sign-in, the email will be send out.
 
-## How to Run this sample
+## How to run this sample
 
 ### Prerequisites
-To run the completed project in this folder, you need the following:
-- [Node.js](https://nodejs.org) installed on your development machine. (**Note:** This tutorial was written with Node version 16.14.0. The steps in this guide may work with other versions, but that has not been tested.)
-- Either a personal Microsoft account with a mailbox on Outlook.com, or a Microsoft work or school account. You can [sign up for the Microsoft 365 Developer Program](https://developer.microsoft.com/microsoft-365/dev-program) to get a free Microsoft 365 subscription.
 
-### Register a web application with the Azure Active Directory admin center
-1. If you have an application ID already, please ensure: 
+- Download and install [Visual Studio Code](https://visualstudio.microsoft.com/downloads/).
+- Install the latest version of [Office Add-ins Development Kit](https://marketplace.visualstudio.com/items?itemName=msoffice.microsoft-office-add-in-debugger) into Visual Studio Code.
+- Node.js (the latest LTS version). Visit the [Node.js site](https://nodejs.org/) to download and install the right version for your operating system. To verify if you've already installed these tools, run the commands `node -v` and `npm -v` in your terminal.
+- Office connected to a Microsoft 365 subscription. You might qualify for a Microsoft 365 E5 developer subscription through the [Microsoft 365 Developer Program](https://developer.microsoft.com/microsoft-365/dev-program), see [FAQ](https://learn.microsoft.com/office/developer-program/microsoft-365-developer-program-faq#who-qualifies-for-a-microsoft-365-e5-developer-subscription-) for details. Alternatively, you can [sign up for a 1-month free trial](https://www.microsoft.com/microsoft-365/try?rtc=1) or [purchase a Microsoft 365 plan](https://www.microsoft.com/microsoft-365/buy/compare-all-microsoft-365-products).
+  
+### Run the add-in using Office Add-ins Development Kit extension
 
-- In [Microsoft Entra admin center](https://aad.portal.azure.com) under **Identity > Applications > App registrations**: 
-- Navigate to **Redirect URI**, set the first drop-down to `Single-page application (SPA)` and its value to `https://localhost:3000/consent.html`.
+We recommend you try this sample by using the [Office Add-ins Development Kit](https://marketplace.visualstudio.com/items?itemName=msoffice.microsoft-office-add-in-debugger). The Office Add-ins Development Kit is an end-to-end developer tool for building Office add-ins. It helps create, run, and debug an Office Add-in.
 
-2. Otherwise, if you haven't registered a web application with the Azure Active Directory admin center, please follow the steps below:
+1. **Download the sample code**
 
-- Open a browser and navigate to the [Microsoft Entra admin center](https://aad.portal.azure.com). Login using a **personal account** (aka: Microsoft Account) or **Work or School Account**.
+   To download this sample code, either:
+   * Open the Office Add-ins Development Kit extension and view samples in the **Sample gallery**. Select the **Create** button in the top-right corner of the sample page.
+   * [Clone](https://docs.github.com/repositories/creating-and-managing-repositories/cloning-a-repository) this repository or download this sample to a folder on your computer. Then, open the folder in Visual Studio Code.
+   
+1. **Open the Office Add-ins Development Kit**
+    
+    Select the <img src="./assets/Icon_Office_Add-ins_Development_Kit.png" width="30" alt="Office Add-ins Development Kit"/> icon in the **Activity Bar** to open the extension.
 
-- Select **Identity** in the left-hand navigation, then select **App registrations** under **Applications**.
-- Select **New registration**. On the **App registrations** page, set the values as follows.
-    - Set **Name** to `Office Add-in Graph Tutorial`.
-    - Set **Supported account types** to **Accounts in any organizational directory and personal Microsoft accounts**.
-    - Under **Redirect URI**, set the first drop-down to `Single-page application (SPA)` and set the value to `https://localhost:3000/consent.html`.
+1. **Preview Your Office Add-in (F5)**
 
-- Select **Register**. On the **Office Add-in Graph Tutorial** page, copy the value of the **Application (client) ID** and save it, you will need it in the next step.
+    Select **Preview Your Office Add-in(F5)** to launch the add-in and debug the code. In the drop down menu, select the option **Desktop (Edge Chromium)**.
 
+    <img src="./assets/devkit_preview.png" width="500" alt="Screenshot shows Preview your Office add-in in Office Add-ins Development Kit"/>
 
-### Configure the sample
+    The extension then checks that the prerequisites are met before debugging starts. Check the terminal for detailed information if there are issues with your environment. After this process, the Excel desktop application launches and opens a new workbook with the sample add-in.
 
-1. Edit the `taskpane.js` file and make the following changes.
-    - Replace `YOUR_APP_ID_HERE` with the **Application Id** you got from the App Registration Portal.
-1. In your command-line interface (CLI), navigate to this directory and run the following command to install requirements.
-    ```
-    npm install
-    ```
+1. **Stop Previewing Your Office Add-in**
 
-### Run and debug the add-in
-1. Open M365/Teams Toolkit
-<br>![](assets/toolkit_development.png)
-2. Click `Check and Install Dependencies`
-3. Launch and debug
-    * **For Office on Windows/macOS**, click `Preview Your Office Add-in(F5)` button on tree view and select a launch config. A Word/Excel/PowerPoint app will launch with add-in sample side-loaded. **Note:** Debugging on macOS is not supported yet.
-    * **For Office on the web**: [Sideload Office Add-ins to Office on the web](https://learn.microsoft.com/office/dev/add-ins/testing/sideload-office-add-ins-for-testing)
-4. Click `Stop Preview Your Office Add-in` to stop debugging.
+    Once you are finished testing and debugging the add-in, select **Stop Previewing Your Office Add-in**. This closes the web server and removes the add-in from the registry and cache.
 
-### How to use the sample
-
-A webpack server will be hosted on https://localhost:3000/, as the CLI shows:
-
-![](./assets/webpack.png)
+## Use the sample add-in
 
 An Excel desktop application will be auto-launched and the Mail Merge Addin will be auto-run on the right taskpane area. The sideload steps has been integrated into the process, eliminating the need for manual intervention.
 
-![](./assets/taskpane.png)
+<img src="./assets/thumbnail.png" width="800">
 
 Please follow the steps below:
 
@@ -69,11 +57,12 @@ Please follow the steps below:
 
 2. Verify Template and Data, the To Line must contain the column name of the email address.
 
-3. Send Email, which will pop up a dialog to get the consent of Microsoft Graph. After sign-in, the email will be send out.
+3. Send Email, which will pop up a dialog to get the consent of Microsoft Graph. After sign-in, the email will be send out. <br><img src="./assets/mail.png" width="600">
 
-    ![](./assets/mail.png)
+## Explore sample files
 
-### File structure
+These are the important files in the sample project.
+
 ```
 | .eslintrc.json
 | .gitignore
@@ -82,33 +71,55 @@ Please follow the steps below:
 |   | launch.json               Launch and debug configurations
 |   | settings.json             
 |   | tasks.json                
-| assets/                       Static assets like image/gif
+| assets/                       Static assets, such as images
 | babel.config.json
-| manifest*.xml                 Manifest file
+| manifest.xml                  Manifest file
 | package.json                  
-| README.md                     Get started here
-| SECURITY.md
-| src/                          Add-ins source code
-|   | commands/
-|   |   | commands.html
-|   |   | commands.js
+| README.md                     
+| RUN_WITH_EXTENSION.md         
+| src/                          Add-in source code
 |   | taskpane/
-|   |   | taskpane.css          Taskpane style
-|   |   | taskpane.html         Taskpane entry html
+|   |   | consent.html          Consent HTML
+|   |   | consent.js            Consent JavaScript
+|   |   | taskpane.css          Task pane style
+|   |   | taskpane.html         Task pane entry HTML
 |   |   | taskpane.js           Add API calls and logic here
 | webpack.config.js             Webpack config
 ```
 
-## Feedback
-Did you experience any problems with the sample? [Create an issue]( https://github.com/OfficeDev/Word-Scenario-based-Add-in-Samples/issues/new) and we'll help you out.
+## Troubleshooting
 
-Let us know your experience using our sample code for Office add-in development: [Sample survey](https://aka.ms/OfficeDevSampleSurvey).
+If you have problems running the sample, take these steps.
+
+- Close any open instances of Excel.
+- Close the previous web server started for the sample with the **Stop Previewing Your Office Add-in** Office Add-ins Development Kit extension option.
+
+If you still have problems, see [troubleshoot development errors](https://learn.microsoft.com//office/dev/add-ins/testing/troubleshoot-development-errors) or [create a GitHub issue](https://aka.ms/officedevkitnewissue) and we'll help you.  
+
+For information on running the sample on Excel on the web, see [Sideload Office Add-ins to Office on the web](https://learn.microsoft.com/office/dev/add-ins/testing/sideload-office-add-ins-for-testing).
+
+For information on debugging on older versions of Office, see [Debug add-ins using developer tools in Microsoft Edge Legacy](https://learn.microsoft.com/office/dev/add-ins/testing/debug-add-ins-using-devtools-edge-legacy).
+
+## Make code changes
+
+Once you understand the sample, make it your own! All the information about Office Add-ins is found in our [official documentation](https://learn.microsoft.com/office/dev/add-ins/overview/office-add-ins). You can also explore more samples in the Office Add-ins Development Kit. Select **View Samples** to see more samples of real-world scenarios.
+
+If you edit the manifest as part of your changes, use the **Validate Manifest File** option in the Office Add-ins Development Kit. This shows you errors in the manifest syntax.
+
+## Engage with the team
+
+Did you experience any problems with the sample? [Create an issue]( https://github.com/OfficeDev/Office-Samples/issues/new) and we'll help you out.
+
+Want to learn more about new features and best practices for the Office platform? [Join the Microsoft Office Add-ins community call](https://learn.microsoft.com/office/dev/add-ins/overview/office-add-ins-community-call).
 
 ## Copyright
-Copyright (c) 2021 Microsoft Corporation. All rights reserved.
+
+Copyright (c) 2024 Microsoft Corporation. All rights reserved.
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
 <br>**Note**: The taskpane.html file contains an image URL that tracks diagnostic data for this sample add-in. Please remove the image tag if you reuse this sample in your own code project.
-<img src="https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/word-add-in-aigc">
+<img src="https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/excel-add-in-mail-merge-script">
 
 ## Disclaimer
+
 **THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
